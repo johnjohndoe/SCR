@@ -254,12 +254,6 @@ class MainActivity : AppCompatActivity() {
 
                 setCurrentAdapter()
                 setTabNames()
-                AlertDialog.Builder(this@MainActivity).setMessage("The Halfnarp is over - you can now transfer your selection to the schedule app")
-                        .setPositiveButton("transfer",{ dialogInterface: DialogInterface, i: Int ->
-                            transferToSchedule()
-                        })
-                        .setNegativeButton(android.R.string.cancel,{ dialogInterface: DialogInterface, i: Int -> })
-                        .show()
             }
         })
     }
