@@ -1,6 +1,6 @@
 buildscript {
     ext {
-        support_version = "25.1.0"
+        support_version = "25.4.0"
         kotlin_version = "1.0.5-2"
     }
 
@@ -24,6 +24,7 @@ buildscript {
 
 allprojects {
     repositories {
+        maven { url 'https://maven.google.com' }
         jcenter()
         maven { url 'https://jitpack.io' }
     }
