@@ -40,13 +40,18 @@ android {
         disable "InvalidPackage"
     }
 
+    def defaultDimension = "default"
+    flavorDimensions defaultDimension
+
     productFlavors {
 
         dev {
+            dimension defaultDimension
             minSdkVersion 21
         }
 
         prod {
+            dimension defaultDimension
         }
     }
 
