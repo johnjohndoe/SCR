@@ -146,7 +146,7 @@ class MainActivity : AppCompatActivity() {
 
             Handler().postDelayed({
 
-                ApiModule.getTalkPreferencesService().createTalkPreferences(getTalkIds(2)).enqueue(object : Callback<CreateTalkPreferencesSuccessResponse> {
+                talkPreferencesService.createTalkPreferences(getTalkIds(2)).enqueue(object : Callback<CreateTalkPreferencesSuccessResponse> {
                     override fun onResponse(call: Call<CreateTalkPreferencesSuccessResponse>, response: Response<CreateTalkPreferencesSuccessResponse>) {
                         State.lastUUID = response.body()!!.uid
                         loadToast.success()
@@ -164,7 +164,7 @@ class MainActivity : AppCompatActivity() {
             val loadToast = LoadToast(this).setText("Uploading new selection").show()
 
             Handler().postDelayed({
-                ApiModule.getTalkPreferencesService().updateTalkPreferences(uuidOrNull, getTalkIds(2)).enqueue(object : Callback<UpdateTalkPreferencesSuccessResponse> {
+                talkPreferencesService.updateTalkPreferences(uuidOrNull, getTalkIds(2)).enqueue(object : Callback<UpdateTalkPreferencesSuccessResponse> {
                     override fun onResponse(call: Call<UpdateTalkPreferencesSuccessResponse>?, response: Response<UpdateTalkPreferencesSuccessResponse>?) {
                         loadToast.success()
                     }
@@ -239,8 +239,7 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun loadData() {
-        val service = ApiModule.getTalkPreferencesService()
-        service.talks.enqueue(object : DefaultRetrofitCallback<List<GetTalksResponse>>(true, this) {
+        talkPreferencesService.talks.enqueue(object : DefaultRetrofitCallback<List<GetTalksResponse>>(true, this) {
             override fun onResponse(call: Call<List<GetTalksResponse>>?, response: Response<List<GetTalksResponse>>) {
                 val body = response.body()!!
 
@@ -263,6 +262,10 @@ class MainActivity : AppCompatActivity() {
                         .show()
             }
         })
+    }
+
+    private val talkPreferencesService by lazy {
+        ApiModule.getTalkPreferencesService("https://halfnarp.events.ccc.de")
     }
 
     private fun setCurrentAdapter() {
