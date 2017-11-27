@@ -148,7 +148,7 @@ class MainActivity : AppCompatActivity() {
 
                 ApiModule.getTalkPreferencesService().createTalkPreferences(getTalkIds(2)).enqueue(object : Callback<CreateTalkPreferencesSuccessResponse> {
                     override fun onResponse(call: Call<CreateTalkPreferencesSuccessResponse>, response: Response<CreateTalkPreferencesSuccessResponse>) {
-                        State.lastUUID = response.body().uid
+                        State.lastUUID = response.body()!!.uid
                         loadToast.success()
                     }
 
@@ -242,7 +242,7 @@ class MainActivity : AppCompatActivity() {
         val service = ApiModule.getTalkPreferencesService()
         service.talks.enqueue(object : DefaultRetrofitCallback<List<GetTalksResponse>>(true, this) {
             override fun onResponse(call: Call<List<GetTalksResponse>>?, response: Response<List<GetTalksResponse>>) {
-                val body = response.body()
+                val body = response.body()!!
 
                 val _groups = body.groupBy {
                     when {
